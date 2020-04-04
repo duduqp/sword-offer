@@ -1,0 +1,20 @@
+ListNode* deleteNode(ListNode* head, int val) {
+        ListNode *  pre=NULL;
+        ListNode* tmp=NULL;
+        ListNode * dummy=new ListNode(-1);
+        dummy->next=head;
+        pre=dummy;
+        tmp=dummy->next;
+        while(tmp)
+        {
+            if(tmp->val==val)
+            {
+                pre->next=tmp->next;
+                tmp->next=NULL;
+                break;
+            }
+            tmp=tmp->next;
+            pre=pre->next;
+        }
+        return dummy->next;
+    }

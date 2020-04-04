@@ -1,0 +1,38 @@
+bool isBalanced(TreeNode* root) {
+        bool isbalanced=false;
+        if(!root) return true;
+        int lh=height(root->left,isbalanced);
+        if(!isbalanced) return false;
+        int lr=height(root->right,isbalanced);
+        if(!isbalanced) return false;
+        return (abs(lh-lr)<=1);
+    }
+
+    int height(TreeNode * root,bool &flag)
+    {
+        if(!root)
+        {
+            flag=true;
+            return 0;
+        }
+        bool flagl=false;
+        int lh=height(root->left,flagl);
+        if(!flagl)
+        {
+            flag=false;
+            return -1;
+        }
+        bool flagr=false;
+        int lr=height(root->right,flagr);
+        if(!flagr)
+        {
+            flag=false;
+            return -1;
+        }
+        if(abs(lh-lr)>1)
+        {
+            flag=false;
+            return -1;
+        }
+        return max(height(root->left,flag),height(root->right,flag))+1;
+    }

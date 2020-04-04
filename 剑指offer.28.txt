@@ -1,0 +1,21 @@
+bool isSymmetric(TreeNode* root) {
+        if(!root||(!root->left&&!root->right)) return true;
+        return ismirror(root->left,root->right); 
+    }
+
+    bool ismirror(TreeNode * rootl,TreeNode * rootr)
+    {
+        if(!rootl)
+        {
+            return rootr==NULL;
+        }
+        if(!rootr)
+        {
+            return rootl==NULL;
+        }
+        if(rootl->val!=rootr->val)
+        {
+            return false;
+        }
+        return ismirror(rootl->left,rootr->right)&&ismirror(rootl->right,rootr->left);
+    }

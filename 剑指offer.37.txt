@@ -1,0 +1,66 @@
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        if(!root)
+        {
+            return "$#";
+        }    
+        //pre-order
+        string s;
+        _serialize(root,s);
+        return s;
+    }
+
+
+        void _serialize(TreeNode* root,string & tmp) {
+        if(!root)
+        {
+            tmp.append("$#");
+            return ;
+        }    
+        //pre-order
+        tmp.append(to_string(root->val));
+        tmp.append("#");
+        tmp.append(serialize(root->left));
+        tmp.append(serialize(root->right));
+        return ;
+    }
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        int i =0;
+        if(data[0]=='$')
+        {
+            return NULL;
+        }
+        return _deserialize(data,i);       
+    }
+
+    TreeNode* _deserialize(string &data,int & i ) {
+        string tmp;
+        if(i>=data.size())
+        {
+            return NULL;
+        }
+        if(data[i]=='$')
+        {
+            i=i+2;
+            return NULL;
+        }
+        
+        while(i<data.size()&&data[i]!='#')
+        {
+            tmp.push_back(data[i]);
+            i++;
+        }
+        if(data[i]=='#')
+        {
+            i++;
+        }
+        TreeNode* root=new TreeNode(stoi(tmp));
+        root->left=_deserialize(data,i);
+        root->right=_deserialize(data,i);
+        return root;
+    }
+};

@@ -1,0 +1,40 @@
+vector<vector<int>> findContinuousSequence(int target) {
+        int limitup=ceil(double(target)/2);
+        vector<vector<int>> ret;
+        int l=0;
+        int r=1;
+        int cur=1;
+        while(l<r&&r<=limitup)
+        {
+            if(cur<target)
+            {
+                // cout << "cur < target" << endl;
+                // cout << l <<":" <<r<<endl;
+                while(cur<target&&r<=limitup)
+                {
+                    r++;
+                    cur+=r;
+                }
+            }else if(cur>target)
+            {
+                // cout << "cur > target" << endl;
+                // cout << l <<":" <<r<<endl;
+                while(cur>target&&l<r)
+                {
+                    l++;
+                    cur-=l-1;
+                }
+            }else{
+                vector<int> v;
+                for(int i = l ;i<=r;++i)
+                {
+                    if(i!=0)
+                    v.push_back(i);
+                }
+                r++;
+                cur+=r;
+                ret.push_back(v);
+            }
+        }
+        return ret;
+    }

@@ -1,0 +1,67 @@
+struct Trie
+{
+	int count;//前缀出现的次数
+	struct Trie *next[SIZE];//孩子节点的数目 
+	bool isEnd; //判断到这个位置是否是一个单词
+	string name; 
+	
+	Trie()//构造函数 
+	{
+		count=0;
+		memset(next,0,sizeof(next));
+		isEnd=false;
+	} 
+}; 
+
+struct Trie *root=new Trie;//建立根节点
+
+void Insert(string s)
+{
+	int len=s.length();
+	int pos;
+	struct Trie *u=root;
+	for(int i=0;i<len;i++)
+	{
+		pos=s[i]-'0';
+		if(u->next[pos]==NULL)//数字在边上，或者说是以位置的方式体现，不需要存储 
+			u->next[pos]=new Trie;
+		u=u->next[pos];
+		u->count++;		
+	}
+	u->isEnd=true;//表明为一个单词的节点
+	u->name=s;//同时存储单词 
+} 
+
+int Search(string s)
+{
+	struct Trie *u=root;
+	int len=s.length();
+	for(int i=0;i<len;i++)
+	{
+		int pos=s[i]-'0';
+		if(u->next[pos]==NULL)
+			return 0;
+		else
+			u=u->next[pos];
+	}
+	return u->count;
+} 
+
+void del(struct Trie *u)
+{
+	for(int i=0;i<SIZE;i++)
+	{
+		if(u->next[i]!=NULL)
+			del(u->next[i]);
+	}
+	delete(u);
+}
+
+void print(struct Trie *u)
+{
+	if(u->isEnd)
+		cout<<u->name<<":"<<u->count<<endl;
+	for(int i=0;i<SIZE;i++)
+		if(u->next[i]!=NULL)
+			print(u->next[i]); 
+}

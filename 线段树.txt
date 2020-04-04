@@ -1,0 +1,71 @@
+int segment[4*N];
+int (actualnumber)num[N];
+
+void build(int numberl,int numberr,int segindex)
+{
+	if(numberl==numberr) segment[segindex]=num[numberl];
+	int mid=(numberl+numberr)/2;
+	build(numberl,mid,segindex*2);
+	build(numberr,mid,segindex*2+1);
+}
+
+void down(int l,int r,int segindex)
+{
+	if(tag[segindex]>0)
+	{
+		int mid=(l+r)/2;
+		tag[segindex*2]=tag[segindex*2+1]=tag[segindex];
+		//update a level
+		segment[segindex*2]=tag[segindex]*(mid-l+1);
+		segment[segindex*2+1]=tag[segindex]*(r-mid);
+		//clear current level
+		tag[segindex]=0;
+	}
+}
+
+void update(int segindex)
+{
+	segment[segindex]=segment[segindex*2]+segment[segindex*2+1];
+		
+}
+
+int query(int Ql,int Qr,int segl,int segr,int segindex)
+{
+	if([segl,segr]属于[Ql,Qr]) return segment[segindex];
+
+		
+	down(segl,segr,segindex);
+	int ret=0;
+	if(Ql<mid)
+	{
+		ret+=query(Ql,Qr,segl,mid,segindex*2);	
+	}
+
+	if(Qr>mid)
+	{
+		ret+=query(Ql,Qr,mid+1,segr,segindex*2+1);	
+	}
+
+	return ret;
+}
+
+void changerange(int Ql,int Qr,int segl,int segr,int segindex,int newval)
+{
+	if([segl,segr]属于[Ql,Qr])
+	{
+		//update current level
+		//but lazy
+		tag[segindex]=newval;//to be down
+		segment[segindex]=(segr-segl+1)*newval;
+		return ;
+	}
+
+	down(segl,segr,segindex)
+	if(Ql>mid)
+	{
+		change(Ql,Qr,segl,mid,segindex*2,newval);
+	}
+	if()...
+	//update!
+	update(segindex);
+}

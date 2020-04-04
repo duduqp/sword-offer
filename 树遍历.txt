@@ -1,0 +1,72 @@
+string  serialize(TreeNode* root) {
+        // pre in post non-recursive
+        // inorder version 
+        // stack<TreeNode *> cache;
+        // TreeNode * tmp=root;
+        // string ret;
+        // while(!cache.empty()||tmp)
+        // {
+        //     while(tmp)
+        //     {
+        //         cache.push(tmp);
+        //         tmp=tmp->left;
+        //     }
+        //     tmp=cache.top();
+        //     ret.push_back(tmp->val+'0');
+        //     cache.pop();
+        //     tmp=tmp->right;
+        // }
+        //####################################################################################
+        //post order version ,NOT FIT THIS PROBLEM!JUST SERVE AS A EXPANDSION
+        //non-pre-inverse trick
+        // stack<TreeNode * > cache;
+        // TreeNode * tmp=root;
+        // TreeNode * pre=NULL;
+        // string ret;
+
+        // do{
+        //     //leftmost
+        //     while(tmp)
+        //     {
+        //         cache.push(tmp);
+        //         tmp=tmp->left;
+        //     }
+        //     pre=NULL;//for each round , pre to be fresh to nullptr!
+        //     while(!cache.empty())
+        //     {
+        //         tmp=cache.top();
+        //         cache.pop();
+        //         if(pre==tmp->right)
+        //         {
+        //             //back trace
+        //             //it is time to visit tmp
+        //             ret.push_back(tmp->val+'0');
+        //             pre=tmp;
+        //         }else{
+        //             // need to wait(cache)
+        //             cache.push(tmp);
+        //             tmp=tmp->right;//means right child has not been visited yet
+        //             break;
+        //         }
+        //     }
+        // }while(!cache.empty());
+        //#######################################################################################
+
+        //#######################################################################################
+        //pre version
+        // stack<TreeNode * > cache;
+        // TreeNode *  tmp=nullptr;
+        // cache.push(root);
+        // string ret;
+        // while(!cache.empty()||tmp)
+        // {
+        //     tmp=cache.top();
+        //     cache.pop();
+        //     while(tmp)
+        //     {
+        //         ret.append(to_string(tmp->val));
+        //         if(tmp->right) cache.push(tmp->right);
+        //         tmp=tmp->left;
+        //     }
+            
+        // }

@@ -1,0 +1,26 @@
+bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        int popi=0;
+        int pushi=0;
+        stack<int> simulator;
+        if(pushed.size()!=popped.size()) return false;
+        if(pushed.empty()) return true;
+        for(;pushi<pushed.size();++pushi)
+        {
+            simulator.push(pushed[pushi]);
+            while(popi<popped.size()&&!simulator.empty()&&popped[popi]==simulator.top())
+            {
+                //pop status
+                simulator.pop();
+                popi++;
+            }
+        }
+        while(!simulator.empty())
+        {
+            if(simulator.top()!=popped[popi])
+            {
+                return false;
+            }
+            simulator.pop();popi++;
+        }
+        return true;
+    }

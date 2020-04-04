@@ -1,0 +1,30 @@
+ vector<int> levelOrder(TreeNode* root) {
+         vector<int> ret;
+        // cout << "hello " <<endl;
+        queue<TreeNode*> q;
+        q.push(root);
+        q.push(nullptr);
+        while(!q.empty())
+        {   
+            
+            TreeNode* tmp=q.front();
+            // std::cout << tmp<< std::endl;
+            q.pop();
+            if(tmp) ret.push_back(tmp->val);
+            if(tmp&&tmp->left)
+            {
+                q.push(tmp->left);
+            }
+            if(tmp&&tmp->right)
+            {
+                q.push(tmp->right);
+            }
+            if(q.front()==nullptr)
+            {
+                if(q.size()==1) break;
+                q.pop();
+                q.push(nullptr);
+            }
+        }
+         return ret;
+    }

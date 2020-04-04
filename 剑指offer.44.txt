@@ -1,0 +1,25 @@
+int findNthDigit(int n) {
+        if(n<=9)
+        {
+            return n;
+        }
+
+        int digit=1;
+        long long  cur=10-1;
+        while(n>cur)
+        {
+            n-=cur;
+            cur=cur/digit;
+            digit++;
+            cur=digit*10*cur;
+        }
+        // cout << n <<"  "<<cur << "  "<<digit << endl;
+
+        //now digit = n's number digit 
+        int number=(n-1)/digit+pow(10,digit-1);
+        string num=to_string(number);
+        
+        // cout << num << endl;
+        //180 9 9   190 1 191 
+        return num[(n-1)%digit]-'0';
+    }

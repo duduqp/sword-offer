@@ -1,0 +1,29 @@
+Node* copyRandomList(Node* head) {
+        map<Node *,Node*> pre_cur;
+        Node * pre=head;
+        Node * cp=new Node(-1);
+        Node * ret=cp;
+        while(head)
+        {
+            cp->next=new Node(head->val);
+            pre_cur.insert(make_pair(head,cp->next));
+            head=head->next;
+            cp=cp->next;
+        }
+        
+        cp=ret->next;
+        while(pre)
+        {
+            if(pre->random==NULL)
+            {
+                cp->random=NULL;
+            }else{
+
+            cp->random=pre_cur[pre->random];
+            }
+            cp=cp->next;
+            pre=pre->next;
+        }
+
+        return ret->next;
+    }

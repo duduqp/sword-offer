@@ -1,0 +1,46 @@
+ pair<int,int> dir[4]={{1,0},{0,1},{-1,0},{0,-1}};
+    bool exist(vector<vector<char>>& board, string word) {
+        if(board.empty()) return word.empty();
+        vector<vector<bool>> vis(board.size(),vector<bool>(board[0].size(),false));
+        for(int i=0;i<board.size();++i)
+        {
+            for(int j=0;j<board[0].size();++j)
+            {
+                if(check(board,word,vis,0,i,j))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    bool check(vector<vector<char>>& board, string word,vector<vector<bool>>& vis,int cur,int x,int y)
+    {
+        if(board[x][y]!=word[cur])
+        {
+            return false;
+        }else{
+            vis[x][y]=true;
+            cur++;
+            if(cur==word.size()) return true;
+            for(int i=0;i<4;++i)
+            {
+                int nx=x+dir[i].first;
+                int ny=y+dir[i].second;
+                if(nx>=0&&ny>=0&&nx<board.size()&&ny<board[0].size()&&!vis[nx][ny])
+                {
+                    if(check(board,word,vis,cur,nx,ny))
+                    {
+                        return true;
+                    }
+                }
+            }
+            //no
+            cur--;
+            vis[x][y]=false;
+            return false;
+        }
+        
+
+    }

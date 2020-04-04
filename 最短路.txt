@@ -1,0 +1,65 @@
+
+struct edge{ int to;int cost;}
+bool vis[NODE];
+int dis[NODE];
+priority_queue<edge> q;
+void dijkstra(int source)
+{
+	//vis[source]=true;
+	dis[source]=0;
+	q.push({source,0});
+	while(!q.empty())
+	{
+		auto tmp=q.top();
+		q.pop();
+		if(dis[tmp.to]<tmp.cost) continue;
+		vis[tmp.to]=true;
+		for(auto &e:graph[tmp.to])
+		{
+			if(vis[e.to]) continue;
+			if(dis[tmp.to]+e.cost<dis[e.to])	
+			{
+				//slack
+				dis[e.to]=dis[tmp.to]+e.cost;
+				q.push(e);
+				//这里可以加边记录
+			}		
+		}
+	}
+}
+
+
+
+priority_queue<> q;
+bool inqueue[NODE];
+int queuecounter[NODE];
+int dis[NODE];
+bool spfa(int source)
+{
+	q.push(source);
+	while(!q.empty())
+	{
+		int tmp=q.top()
+;q.pop();		
+		for(auto &e:graph[tmp])
+		{
+			if(dis[e.to]>dis[tmp]+e.cost){
+			dis[e.to]=dis[tmp]+e.cost;
+			if(!inqueue[e.to])
+			{
+				q.push(e.to);
+				inqueue[e.to]=true;
+				queuecounter[e.to]++;
+				if(queuecounter[e.to]>=NODE){
+				return true;
+				}
+			}
+		}			
+
+
+		}
+	}
+
+	return false;//nocycle
+}
+

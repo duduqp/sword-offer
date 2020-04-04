@@ -1,0 +1,26 @@
+ vector<int> singleNumbers(vector<int>& nums) {
+        int * arr=new int[2];//two group
+        int Xor=0;
+        for_each(nums.begin(),nums.end(),[&Xor](const int & i){
+            Xor=Xor^i;
+        });
+        int mask=Xor & (~Xor+1);//100010100 & 011101100
+        auto ret=partition(nums.begin(),nums.end(),[&mask](const int & i){
+                if(i&mask)
+                {
+                    return true;
+                }else{
+                    return false;
+                }
+        });
+
+        vector<int> res(2,0);
+        int tmp=0;
+        for_each(ret,nums.end(),[&tmp](const int & i){
+            tmp=tmp^i;
+        });
+        res[0]=tmp;
+        res[1]=tmp^Xor;
+        return res;
+
+    }

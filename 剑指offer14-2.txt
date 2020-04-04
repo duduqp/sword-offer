@@ -1,0 +1,24 @@
+int cuttingRope(int n) {
+        if(n<=4)
+        {
+            switch(n){
+                case 1:
+                    return 1;
+                case 2:
+                    return 1;
+                case 3:
+                    return 2;
+                case 4:
+                    return 4;
+            }
+        }
+        return recur(n)%1000000007;
+    }
+
+
+    long long recur(int n)
+    {
+        if(n==4) return 4;
+        if(n<=3) return n;
+        return (recur(n-3)%1000000007)*3;
+    }

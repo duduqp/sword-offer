@@ -1,0 +1,30 @@
+ int add(int a, int b) {
+        int carry=0;
+        int i=0;
+        int ret=0;
+        while(i<=31)
+        {
+            int aa=a&(1U<<i);
+            int bb=b&(1U<<i);
+                ret|=(aa^bb)^(carry<<i);
+            if(carry)
+            {
+                if(!(aa==0&&bb==0))
+                {
+                    carry=1;
+                }else{
+
+                carry=0;
+                }
+            }else{
+                if(aa&&bb)
+                {
+                    carry=1;
+                }else{
+                    carry=0;
+                }
+            }
+            i++;
+        }
+        return ret;
+    }

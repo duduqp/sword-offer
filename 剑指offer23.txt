@@ -1,0 +1,19 @@
+ListNode* getKthFromEnd(ListNode* head, int k) {
+        ListNode * fast=NULL;
+        ListNode * slow=NULL;
+        ListNode * dummy=new ListNode(-1);
+        dummy->next=head;
+        fast=dummy;
+        slow=dummy;
+        while(k>0)
+        {
+            fast=fast->next;
+            k--;
+        }
+        while(fast&&slow)
+        {
+            fast=fast->next;
+            slow=slow->next;
+        }
+        return slow;
+    }

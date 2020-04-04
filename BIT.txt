@@ -1,0 +1,27 @@
+int BIT[MAXN];
+int num[N];
+
+int lowbit(int n)
+{    return n & (-n);}
+
+
+int query0to(int i)
+{
+	int ret=0;
+	while(i>0)
+	{
+		ret+=BIT[i];
+		i-=lowbit(i);	
+	}
+	return ret;
+}
+
+int add(int i,int delta)
+{
+	while(i<MAXN)
+	{
+		BIT[i]+=delta;
+		i+=lowbit(i);
+	}
+}
+

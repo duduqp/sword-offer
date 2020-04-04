@@ -1,0 +1,49 @@
+string reverseWords(string s) {
+        if(s.empty())
+        {
+            return "";
+        }
+        Trim(s);
+        if(s.empty())
+        {
+            return "";
+        }
+        vector<string> words;
+        int i=0;
+        int r=0;
+        while(r<s.size())
+        {
+            int i=r;
+            while(r<s.size()&&!isspace(s[r]))
+            {
+                r++;
+            }
+            words.push_back(s.substr(i,r-i));
+            while(r<s.size()&&isspace(s[r]))
+            {
+                r++;
+            }
+        }
+        string ret;
+        for(auto it=words.rbegin();it!=words.rend();++it)
+        {
+            ret.append(*it);
+            ret.push_back(' ');
+        }
+        ret.pop_back();
+        return ret;
+    }
+    void Trim(string & s)
+    {
+        int i=0;
+        while(i<s.size()&&isspace(s[i]))
+        {
+            i++;
+        }
+        int j=s.size()-1;
+        while(j>=i&&isspace(s[j]))
+        {
+            j--;
+        }
+        s=s.substr(i,j-i+1);
+    }

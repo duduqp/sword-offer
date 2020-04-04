@@ -1,0 +1,60 @@
+int reversePairs(vector<int>& nums) {
+        return countrange(nums,0,nums.size()-1);
+    }
+
+    int countrange(vector<int> &nums,int l ,int r)
+    {
+        if(r<=l)
+        {
+            return 0;
+        }
+
+        //l>r
+        if(l==r-1)
+        {
+            if(nums[r]>=nums[l])
+            {
+                return 0;
+            }else{
+                swap(nums[r],nums[l]);
+                return 1;
+            }
+        }
+        int mid=l+((r-l)>>1);
+        int lc=countrange(nums,l,mid);
+        int rc=countrange(nums,mid+1,r);
+        int extra=0;
+        vector<int> aux(nums.begin()+l,nums.begin()+mid+1);
+        int ll=0;
+        int lr=aux.size()-1;
+        int rl=mid+1;
+        int rr=r;
+       
+        while((ll<=lr&&rl<=rr))
+        {
+            while(l<=r&&(ll<=lr&&rl<=rr)&&aux[ll]>nums[rl])
+            {
+                extra+=lr-ll+1;
+                nums[l++]=nums[rl++];
+            }
+            while(l<=r&&(ll<=lr&&rl<=rr)&&aux[ll]<=nums[rl])
+            {
+                nums[l++]=aux[ll++];
+            }
+        }
+       
+        if(ll<=lr)
+        {
+            while(ll<=lr)
+            {
+                nums[l++]=aux[ll++];
+            }
+        }
+
+        while(rl<=rr)
+        {
+            nums[l++]=nums[rl++];
+        }
+
+        return extra+lc+rc;
+    }

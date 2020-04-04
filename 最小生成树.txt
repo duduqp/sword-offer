@@ -1,0 +1,49 @@
+#include "union-find.h"
+
+int kruskal(){
+	sort(edges,edges+E,cmp);//从小到大
+	int ret=0;//weight
+	for(int i=0;i<E;++i){
+	edge e=edges[i];
+	if(!same(e.from,e.to))
+	{
+		union(e.from,e.to);
+		ret+=e.weight;
+	}	
+	return ret;
+}
+
+
+}
+
+
+
+int dis[NODE];
+bool intree[NODE];
+priority_queue<edge> q;
+int prim(int root){
+	dis[root]=0;
+	q.push({root,0});
+	int cnt=NODE-1;
+	while(!q.empty()&&cnt)
+	{
+		auto tmp=q.top();
+		q.pop();
+		if(intree[tmp.to]) continue;
+		intree[tmp.to]=true;
+//		加边加权
+		ret+=dis[tmp.to];
+		cnt--;
+		for(auto &e:graph[tmp.to])
+		{
+			
+			if(!intree[e.to]) q.push(e.to);
+			//直接全部加到堆里自动取最小的优先！
+		}
+	}
+
+
+
+
+
+}

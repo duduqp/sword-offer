@@ -1,0 +1,34 @@
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(!hascommon(headA,headB))
+        {
+            return NULL;
+        }
+        ListNode *cursora=headA;
+        ListNode *cursorb=headB;
+        while(cursora!=cursorb)
+        {
+            cursora=cursora->next;
+            cursorb=cursorb->next;
+            if(cursora==NULL) cursora=headB;
+            if(cursorb==NULL) cursorb=headA;
+            
+        }
+        return cursora;
+    }
+
+    bool hascommon(ListNode * headA,ListNode * headB)
+    {
+        ListNode * ha=new ListNode(-1);
+        ha->next=headA;
+        ListNode * hb=new ListNode(-1);
+        hb->next=headB;
+        while(ha->next)
+        {
+            ha=ha->next;
+        }
+        while(hb->next)
+        {
+            hb=hb->next;
+        }
+        return ha==hb;
+    }

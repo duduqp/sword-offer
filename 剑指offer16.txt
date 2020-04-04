@@ -1,0 +1,19 @@
+ double myPow(double x, int n) {
+        bool negativeflag=(n<0);
+        if(x==1||n==0) return 1;
+        double tmp=x;
+        long long exp=static_cast<long long>(n);
+        long long N=abs(exp);
+        long long weight=1;
+        double res=1;
+        while(weight<=N)
+        {
+            if(weight&N)
+            {
+                res*=tmp;
+            }
+            weight=weight<<1;
+            tmp=tmp*tmp;
+        }
+        return negativeflag?1/res:res;
+    }

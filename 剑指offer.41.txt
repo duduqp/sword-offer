@@ -1,0 +1,46 @@
+class MedianFinder {
+public:
+    /** initialize your data structure here. */
+    MedianFinder() {
+        
+    }
+    
+    void addNum(int num) {
+        if((max_heap.size()+min_heap.size())&1)
+        {
+            //odd
+            max_heap.push(num);
+            min_heap.push(max_heap.top());
+            max_heap.pop();
+        }else{
+            min_heap.push(num);
+            max_heap.push(min_heap.top());
+            min_heap.pop();
+        }
+    }
+    
+    double findMedian() {
+        if(max_heap.empty()&&min_heap.empty())
+        {
+            return -1.0;
+        }
+        if(min_heap.empty())
+        {
+            return max_heap.top();
+        }
+        if(max_heap.empty())
+        {
+            return min_heap.top();
+        }
+        if((max_heap.size()+min_heap.size())&1)
+        {
+            //odd
+            return max_heap.top();
+        }else{
+            return (max_heap.top()+min_heap.top())*0.5;
+        }
+    }
+private:
+    priority_queue<double> max_heap;
+    priority_queue<double,deque<double>,greater<double>> min_heap;
+};

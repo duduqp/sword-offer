@@ -1,0 +1,36 @@
+vector<string> permutation(string s) {
+        //0123...s.size()-1   的数字的全排列
+        // int n=s.size()-1;
+        // vector<bool> mp(s.size(),false);
+        // set<string> st;
+        // string tmp;
+        // dfs(st,mp,s,tmp,0);
+        // vector<string> ret(st.begin(),st.end());
+        // return ret;
+        //可应对重复字母的字典序
+        sort(s.begin(),s.end());
+        vector<string> ret;
+        while(true)
+        {
+            //find rightmost reverse pair
+            ret.push_back(s);
+            int i,j;
+            for(i=s.size()-2;i>=0;i--)
+            {
+                if(s[i]<s[i+1])
+                {
+                    break;
+                }
+            }
+            if(i==-1) return ret;
+            std::cout <<i<< s << std::endl;
+            //find rightmost char s[j] >= s[i]
+            for(j=s.size()-1;j>i;--j)
+            {
+                if(s[j]>s[i]) break;
+            }
+            swap(s[i],s[j]);
+            reverse(s.begin()+i+1,s.end());
+            // myrotate(s,i,j+1);
+        }
+    }

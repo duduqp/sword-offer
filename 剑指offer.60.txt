@@ -1,0 +1,36 @@
+ vector<double> twoSum(int n) {
+        vector<double> ret;
+        vector<long long> tmp(6*n+1,0);
+        dp(tmp,n,6*n);
+        long long div=pow(6,n);
+        for(int i=n;i<=6*n;++i)
+        {
+            ret.push_back(tmp[i]*1.0/div);
+        }
+        return ret;
+    }
+    void dp(vector<long long> & counter,int n,int target)
+    {
+        counter[0]=0;
+        counter[1]=counter[2]=counter[3]=counter[4]=counter[5]=counter[6]=1;
+        for(int i=2;i<=n;++i)
+        {
+            vector<long long>  roller(counter.begin(),counter.end());
+            for(int j=i;j<=target;++j)
+            {
+                // j+1
+                counter[j]=0;//zero it!
+                for(int k=1;k<=6;++k)
+                {
+                    std::cout << i << j <<k <<endl;
+                    if(j-k<i-1) break;
+                    counter[j]+=roller[j-k];
+                }
+            }
+        }
+        // for(auto e:counter)
+        // {
+        //     std::cout << e << std::endl;
+        // }
+        return ;
+    }

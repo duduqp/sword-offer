@@ -1,0 +1,39 @@
+int dfsrank[NODE],lowrank(NODE),scc[NODE];
+stack<int > s;
+int timestramp=0;
+
+
+void tarjan(int root)
+{
+	if(dfsrank[root]) return ;
+	dfsrank[root]=lowrank[root]=++timestramp;
+	s.push(root);
+	for(auto &e:graph[root])
+	{
+		if(dfsrank[e.to]==0)//not visited yet{
+		tarjan(e.to);
+		lowrank[root]=min(lowrank[e.to],lowrank[root]);//update lowrank
+		}else{
+	//already visited
+		if(scc[e.to]==0)
+		{
+	//in stack 
+		lowrank[root]=min(lowrank[root],dfsrank[e.to]);
+		}
+			}
+	}	
+
+	//after all edges neighbor
+	if(lowrank[root]==dfsrank[root])//can not find  earlier
+	{
+		sccnum++;//强连通分量序号增加
+		while(true){
+			int tmp=s.top();
+			scc[tmp]=sccnum;
+			if(tmp==root) break;
+			//更新在root之后入栈的所有节点，因为他们构成了新的强连通分量
+			}		
+	}
+
+
+}

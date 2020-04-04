@@ -1,0 +1,39 @@
+vector<int> twoSum(vector<int>& nums, int target) {
+        // int r=0;
+        // while(r<nums.size()&&2*nums[r]<target)
+        // {
+        //     int j=r+1;
+        //     int cursum=nums[r];
+        //     while(j<nums.size()&&cursum<target)
+        //     {
+        //         cursum+=nums[j];
+        //         j++;
+        //     }
+        //     if(cursum==target)
+        //     {
+        //         return vector<int>(nums.begin()+r,nums.begin()+j);
+        //     }
+        //     while(r<=j&&cursum>target)
+        //     {
+        //         cursum-=nums[r];
+        //         r++;
+        //     }
+        //     if(cursum==target)
+        //     {
+        //         return vector<int>(nums.begin()+r-1,nums.begin()+j); 
+        //     }
+        //     r=j+1;
+        // }
+        // return {};  ----子数组版本（连续）
+        //子序列版本（可不连续）
+        for(int i=0;i<nums.size()-1;++i)
+        {
+            auto itl=lower_bound(nums.begin()+i+1,nums.end(),target-nums[i]);
+            auto itr=upper_bound(nums.begin()+i+1,nums.end(),target-nums[i]);
+            if(itl!=nums.end()&&itr!=itl)
+            {
+                return {nums[i],*itl};
+            }
+        }
+        return {};
+    }

@@ -1,0 +1,70 @@
+int strToInt(string str) {
+        //find first non-space
+        if(str.empty())
+        {
+            return 0;
+        }
+        int i=0;
+        while(!isdigit(str[i])&&i<str.size())
+        {
+            if(str[i]=='+'||str[i]=='-')
+            {
+                break;
+            }
+            if(isalpha(str[i])||ispunct(str[i]))
+            {
+                return 0;
+            }
+            
+            i++;
+        }
+        if(i==str.size())
+        {
+            return 0;
+        }
+        char sign=(str[i]=='+'||isdigit(str[i]))?'+':'-';
+        if(!isdigit(str[i]))
+        {
+            i++;
+        }
+        int start=i;
+        //find consecutive number
+        //ignore 0
+        while(isdigit(str[i])&&i<str.size())
+        {
+            i++;
+        }
+        
+        if(i==start)
+        {
+            return 0; 
+        }else{
+            //find 0
+            if(i-start==1) return sign=='+'?stoi(str.substr(start,i-start)):-stoi(str.substr(start,i-start));
+            while(start<i&&str[start]=='0')
+            {
+                start++;
+            }
+            if(i==start) return 0;
+            if(i-start>10)
+            {
+                return sign=='+'?INT_MAX:INT_MIN;
+            }else{
+                if(i-start==10)
+                {
+                    if(str[start]=='0') return 0;
+                    if(stoul(str.substr(start,10))==INT_MIN) return INT_MIN;
+                    if(stoul(str.substr(start,10))>INT_MAX)
+                    {
+                        return sign=='+'?INT_MAX:INT_MIN;
+                    }else{
+                        return sign=='+'?stoul(str.substr(start,10)):-stoul(str.substr(start,10));
+                    }
+                }else{
+                    //i-start<10
+                    return sign=='+'?stoul(str.substr(start,10)):-stoul(str.substr(start,10));
+                }
+            }
+        }
+
+    }

@@ -1,0 +1,15 @@
+string reverseLeftWords(string s, int n) {
+        string ret(s);
+        int j=0;
+        for(int i=n;i<s.size();++i)
+        {
+            ret[j]=s[i];
+            j++;
+        }
+        for(int i=0;i<n;++i)
+        {
+            ret[j]=s[i];
+            j++;
+        }
+        return ret;
+    }

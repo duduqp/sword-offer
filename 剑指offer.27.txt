@@ -1,0 +1,31 @@
+TreeNode* mirrorTree(TreeNode* root) {
+        //swap val
+        if(!root||(!root->left&&!root->right))
+        {
+            return root;
+        }
+        mirrorTree(root->left);
+        mirrorTree(root->right);
+        myswap(root->left,root->right);
+        return root;
+    }
+
+    // void MirrorTree(TreeNode*& l,TreeNode*& r)
+    // {
+    //     if(!l&&!r) return;
+    //     if((!l&&r)||(l&&!r))
+    //     {
+    //         myswap(l,r);
+    //         return ;
+    //     }
+    //     l=mirrorTree(l);
+    //     r=mirrorTree(r);
+    //     myswap(l,r);
+    // }
+
+    void myswap(TreeNode * & l,TreeNode * & r)
+    {
+        TreeNode * tmp=l;
+        l=r;
+        r=tmp;
+    }

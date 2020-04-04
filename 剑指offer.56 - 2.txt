@@ -1,0 +1,48 @@
+ int singleNumber(vector<int>& nums) {
+        // (xxxaxxx+ xxxaxxx + xxxaxxx)3 =(0000000)3
+        vector<int> v1(32,0);
+        vector<int> v2(32,0);
+        // vector<int> backup=v2;
+        for(int i = 0 ; i<nums.size();++i)
+        {
+            tovec(nums[i],v2);
+            threeadd(v1,v2);
+            v2.assign(32,0);
+        }
+        return tonumber(v1);
+    }
+    int tonumber(const vector<int> & v)
+    {
+        long ret=0;
+        for(int i =0;i<31;++i)
+        {
+            if(v[i]==1)
+                ret+=1<<i;
+        }
+        // for_each(v.begin(),v.end(),[](const int & i){  cout << i << "  ";});
+        ret+=(-(1U<<31))*v[31];
+        return ret;
+    }
+    void tovec(const int & n,vector<int> & v)
+    {
+        for(int i = 0 ;i<32;++i)
+        {
+            if(n&(1U<<i))
+            {
+                v[i]=1;
+            }
+        }
+        // cout << n<<":"<<"\n";
+        // for_each(v.begin(),v.end(),[](const int & i){  cout << i << "  ";});
+        // cout <<"\n";
+
+    }
+
+    void  threeadd(vector<int> & i1,vector<int> & i2)
+    {
+        int sz=i1.size();
+        for(int i = 0;i<sz;++i)
+        {
+            i1[i]=(i1[i]+i2[i])%3;
+        }
+    }

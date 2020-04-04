@@ -1,0 +1,23 @@
+ int missingNumber(vector<int>& nums) {
+        // if(nums.size()==1)
+        // {
+        //     return nums[0]==0?1:0;
+        // }
+        int l =0;
+        int r =nums.size()-1;
+        while(l<r)
+        {
+            int mid=l+((r-l)>>1);
+            if(nums[mid]>mid)
+            {
+                r=mid;
+            }else{
+                l=mid+1;
+            }
+        }
+        if(l==nums.size()-1)
+        {
+            return nums[l]==l?l+1:l;
+        }
+        return l;
+    }
